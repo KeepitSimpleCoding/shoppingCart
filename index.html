@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/application.js"></script>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <h3 style="text-align: center; text-decoration: underline;">Simple Shopping Cart</h3>
+    <br>
+    <br>
+
+    <div class="container">
+      <button id="nightButton" onclick="nightMode()">Night Mode</button>
+            <button id="dayButton" onclick="dayMode()">Day Mode</button>
+
+
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Amount per</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Amount with quantity</th>
+            <th scope="col">Remove item</th>
+          </tr>
+        </thead>
+        <tbody>
+<!-- NOTE: called the multiply function in the QUANTITY portion, not amount-->
+          <tr>
+            <td class="item"> Bananas</td>
+              <td class="price"> .29</td>
+             
+
+                <td>
+                  <input type="number" class="quantity" min="0" value="0" oninput="multiply(); total();">
+                                 
+                <td class="amount">0.00</td>
+                <td class = "remove"> <button id = "remove" onclick = "remove()"> remove </td>
+
+            </tr>
+          </tr>
+     
+          <tr>
+            <td class="item"> Apples</td>
+              <td class="price"> .48</td>
+             
+
+                <td>
+                  <input type="number" class="quantity" min="0" value="0" oninput="multiply(); total();">
+                                 
+                <td class = "amount">0.00</td>
+                <td class = "remove"> <button id = "remove" onclick = "remove()"> remove </td>
+            </tr>
+          </tr>
+          <tr>
+            <td class="item"> Oranges</td>
+              <td class ="price"> .63</td>
+             
+
+                <td>
+                  <input type="number" class="quantity" min="0" value="0" oninput="multiply(); total()">
+                                 
+                <td class ="amount">0.00</td>
+                <td class = "remove"> <button id = "remove" onclick = "remove()"> remove </td>
+
+            </tr>
+          </tr>
+          <tr>
+            <td class="item"> Kiwi</td>
+              <td class="price"> 1.29</td>
+             
+
+                <td>
+                  <input type="number" class="quantity" min="0" value="0" oninput="multiply(); total()">
+                                 
+                <td class ="amount">0.00</td>
+                <td class = "remove"> <button id = "remove" onclick = "remove()"> remove </td>
+
+            </tr>
+          </tr>
+          <tr> 
+            <td colspan="3" style="text-align: right;">Total: $</td>
+            <td class="total">0.00</td>
+
+           
+          </tr>
+
+      <script>
+
+    function nightMode() {
+    document.body.style.background="black";
+    document.body.style.color = "white";
+  }
+  function dayMode() {
+    document.body.style.background="white";
+    document.body.style.color = "black";
+  }
+
+  // to multiply, you must declare the variables needed with const, then run a for loop to iterate the function, 
+  // then change text to value using parseFloat/Int(variable[i].textContent)
+
+
+
+function multiply() {
+    const prices = document.querySelectorAll('.price');
+ const quantities = document.querySelectorAll('.quantity');
+ const amounts = document.querySelectorAll('.amount');
+    
+ for (let i = 0; i < prices.length; i++) {
+  const price = parseFloat(prices[i].textContent);
+   const quantity = parseInt(quantities[i].value);
+      amounts[i].innerHTML = (price * quantity).toFixed(2);
+   }
+  }
+
+  // create function to get total //
+
+  // create function
+  // delcare variable, select amount
+  // initialize total to 0
+  // call for loop
+  // for loop { get total (textContent)}
+  // select the element, update text content
+
+  
+function total() {
+    const amounts = document.querySelectorAll('.amount');
+    let total = 0;
+    
+    for (let i = 0; i < amounts.length; i++) {
+      total = parseFloat(amounts[i].textContent) + total;
+    }
+    
+    document.querySelector('.total').textContent = total.toFixed(2);
+  }
+
+
+
+// create remove button function - reset value of input - i did use AI to help, but it did not completely write code for me //
+
+
+// function to remove:
+// 1) define function
+// 2) select elements with "remove" and run another function forEach
+// 3) add click even listener
+// 4) declare row = find the closest table row
+// 5) select quantityInput
+// 6) setting the quantity to zero and updating totals
+
+
+
+function remove() {
+ document.querySelectorAll('.remove').forEach(function(button) {
+   button.addEventListener('click', function() {
+    const row = button.closest('tr');
+    const quantityInput = row.querySelector('.quantity');
+  quantityInput.value = 0; 
+    multiply();
+    total();
+
+    });
+});
+}
+
+// document.addEventListener('DOMContentLoaded', remove);
+
+
+
+
+
+
+
+</script>
+
+
+    </script>
+  </body>
+</html>
